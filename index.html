@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nineact Games - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white font-inter">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary-blue': '#007bff',
+                        'primary-red': '#dc3545',
+                        'dark-bg': '#1a202c',
+                        'dark-card': '#2d3748',
+                        'dark-text': '#e2e8f0',
+                        'gradient-start-blue': '#225BF4',
+                        'gradient-end-pink': '#E455E8',
+                        'gradient-mid-purple': '#8E40EE'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Header -->
+    <header class="bg-dark-bg py-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <!-- Logo Section -->
+            <div class="flex items-center">
+                <img src="https://placehold.co/80x80/000000/FFFFFF?text=9A" alt="Nineact Games Logo" class="h-16 w-16 mr-3 rounded-full">
+                <span class="text-3xl font-bold bg-gradient-to-r from-gradient-start-blue via-gradient-mid-purple to-gradient-end-pink text-transparent bg-clip-text">NINEACT GAMES</span>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav>
+                <ul class="flex space-x-8 text-lg font-semibold">
+                    <li><a href="index.html" class="hover:text-primary-blue transition duration-300">Home</a></li>
+                    <li><a href="games.html" class="hover:text-primary-blue transition duration-300">Our Games</a></li>
+                    <li><a href="about.html" class="hover:text-primary-blue transition duration-300">About Us</a></li>
+                </ul>
+            </nav>
+
+            <!-- Social Media Icons -->
+            <div class="flex space-x-6">
+                <a href="https://instagram.com/nineactgames" target="_blank" class="text-white hover:text-pink-500 transition duration-300"><i class="fab fa-instagram fa-lg"></i></a>
+                <a href="https://twitter.com/nineactgames" target="_blank" class="text-white hover:text-blue-400 transition duration-300"><i class="fab fa-twitter fa-lg"></i></a>
+                <a href="https://youtube.com/@nineactgames" target="_blank" class="text-white hover:text-red-600 transition duration-300"><i class="fab fa-youtube fa-lg"></i></a>
+                <a href="https://linkedin.com/company/nineactgames" target="_blank" class="text-white hover:text-blue-700 transition duration-300"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="https://discord.gg/MMxm4xUB" target="_blank" class="text-white hover:text-purple-500 transition duration-300"><i class="fab fa-discord fa-lg"></i></a>
+                <a href="https://github.com/nineactgames" target="_blank" class="text-white hover:text-gray-400 transition duration-300"><i class="fab fa-github fa-lg"></i></a>
+                <a href="https://reddit.com/user/nineactgames" target="_blank" class="text-white hover:text-orange-500 transition duration-300"><i class="fab fa-reddit-alien fa-lg"></i></a>
+                <a href="https://nineactgames.itch.io" target="_blank" class="text-white hover:text-red-700 transition duration-300"><i class="fab fa-itch-io fa-lg"></i></a>
+                <a href="https://gamejolt.com/@nineactgames" target="_blank" class="text-white hover:text-yellow-500 transition duration-300"><i class="fab fa-gamepad fa-lg"></i></a> <!-- Using gamepad for Game Jolt -->
+                <!-- Steam doesn't have a direct Font Awesome icon that's specific, but we can use a generic game icon or a custom SVG if needed. For now, using Gamepad. -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center text-center overflow-hidden">
+        <video autoplay muted loop class="absolute inset-0 w-full h-full object-cover z-0 opacity-30">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-futuristic-scene-with-glowing-lines-4560-large.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="relative z-10 p-8 bg-black bg-opacity-50 rounded-lg shadow-2xl backdrop-blur-sm">
+            <h1 class="text-6xl font-extrabold mb-6 animate-pulse bg-gradient-to-r from-cyan-400 to-purple-600 text-transparent bg-clip-text">
+                Immersive Worlds, Unforgettable Adventures.
+            </h1>
+            <p class="text-2xl text-gray-300 mb-10">
+                Crafting the future of interactive entertainment.
+            </p>
+            <a href="games.html" class="px-8 py-4 bg-gradient-to-r from-gradient-start-blue to-gradient-end-pink text-white text-xl font-bold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out">
+                Explore Our Games
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section - Brief Intro -->
+    <section class="py-20 bg-dark-card text-dark-text rounded-lg shadow-xl mx-auto max-w-7xl my-16 p-10">
+        <div class="container mx-auto text-center">
+            <h2 class="text-5xl font-extrabold mb-10 bg-gradient-to-r from-red-500 to-yellow-500 text-transparent bg-clip-text">About Nineact Games</h2>
+            <p class="text-xl leading-relaxed max-w-4xl mx-auto">
+                Nineact Games is an innovative game development studio dedicated to creating captivating and immersive experiences.
+                We believe in pushing the boundaries of interactive storytelling and gameplay, bringing unique worlds to life
+                for players across the globe. Join us on our journey to redefine gaming.
+            </p>
+            <a href="about.html" class="mt-12 inline-block px-8 py-3 border border-primary-blue text-primary-blue font-semibold rounded-full hover:bg-primary-blue hover:text-white transition duration-300 shadow-md">
+                Learn More About Us
+            </a>
+        </div>
+    </section>
+
+    <!-- Featured Games Section -->
+    <section class="py-20 bg-gray-900 text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-5xl font-extrabold text-center mb-16 bg-gradient-to-r from-green-400 to-blue-500 text-transparent bg-clip-text">Featured Games</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                <!-- Game Card 1 -->
+                <div class="bg-dark-card rounded-xl shadow-2xl overflow-hidden transform hover:scale-105 transition duration-300 group">
+                    <img src="https://placehold.co/600x400/3498db/FFFFFF?text=Game+Title+1" alt="Game Title 1 Thumbnail" class="w-full h-64 object-cover">
+                    <div class="p-8">
+                        <h3 class="text-3xl font-bold mb-4 group-hover:text-primary-blue transition duration-300">Epic Fantasy Quest</h3>
+                        <p class="text-gray-300 leading-relaxed mb-6">Embark on a grand adventure in a realm filled with magic, mythical creatures, and ancient mysteries. Forge your destiny!</p>
+                        <a href="games.html#game1" class="inline-block bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Game Card 2 -->
+                <div class="bg-dark-card rounded-xl shadow-2xl overflow-hidden transform hover:scale-105 transition duration-300 group">
+                    <img src="https://placehold.co/600x400/e74c3c/FFFFFF?text=Game+Title+2" alt="Game Title 2 Thumbnail" class="w-full h-64 object-cover">
+                    <div class="p-8">
+                        <h3 class="text-3xl font-bold mb-4 group-hover:text-primary-blue transition duration-300">Sci-Fi Colony Builder</h3>
+                        <p class="text-gray-300 leading-relaxed mb-6">Establish and manage a thriving colony on a distant, alien planet. Survive, innovate, and expand!</p>
+                        <a href="games.html#game2" class="inline-block bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300">View Details</a>
+                    </div>
+                </div>
+
+                <!-- Game Card 3 -->
+                <div class="bg-dark-card rounded-xl shadow-2xl overflow-hidden transform hover:scale-105 transition duration-300 group">
+                    <img src="https://placehold.co/600x400/f39c12/FFFFFF?text=Game+Title+3" alt="Game Title 3 Thumbnail" class="w-full h-64 object-cover">
+                    <div class="p-8">
+                        <h3 class="text-3xl font-bold mb-4 group-hover:text-primary-blue transition duration-300">Mystery Detective Story</h3>
+                        <p class="text-gray-300 leading-relaxed mb-6">Unravel intricate mysteries in a noir-inspired city. Collect clues, interrogate suspects, and expose the truth.</p>
+                        <a href="games.html#game3" class="inline-block bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold py-3 px-6 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300">View Details</a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-16">
+                <a href="games.html" class="px-10 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xl font-bold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out">
+                    View All Games
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action / Newsletter Section -->
+    <section class="py-20 bg-dark-bg text-dark-text text-center rounded-lg shadow-xl mx-auto max-w-7xl my-16 p-10">
+        <h2 class="text-5xl font-extrabold mb-8 bg-gradient-to-r from-purple-400 to-red-400 text-transparent bg-clip-text">Stay Updated!</h2>
+        <p class="text-xl mb-10 max-w-3xl mx-auto">
+            Join our community to get the latest news, updates, and exclusive content directly in your inbox.
+        </p>
+        <form class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
+            <input type="email" placeholder="Enter your email" class="p-4 rounded-full bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-primary-blue focus:border-transparent text-lg w-full md:w-96 text-white" required>
+            <button type="submit" class="px-8 py-4 bg-gradient-to-r from-green-500 to-blue-500 text-white font-bold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300 text-lg">Subscribe Now</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-10 text-gray-400 text-center">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="https://instagram.com/nineactgames" target="_blank" class="hover:text-white transition duration-300"><i class="fab fa-instagram fa-2x"></i></a>
+                <a href="https://twitter.com/nineactgames" target="_blank" class="hover:text-white transition duration-300"><i class="fab fa-twitter fa-2x"></i></a>
+                <a href="https://youtube.com/@nineactgames" target="_blank" class="hover:text-white transition duration-300"><i class="fab fa-youtube fa-2x"></i></a>
+                <a href="https://linkedin.com/company/nineactgames" target="_blank" class="hover:text-white transition duration-300"><i class="fab fa-linkedin fa-2x"></i></a>
+                <a href="https://discord.gg/MMxm4xUB" target="_blank" class="hover:text-white transition duration-300"><i class="fab fa-discord fa-2x"></i></a>
+                <a href="https://github.com/nineactgames" target="_blank" class="hover:text-white transition duration-300"><i class="fab fa-github fa-2x"></i></a>
+                <a href="https://reddit.com/user/nineactgames" target="_blank" class="hover:text-white transition duration-300"><i class="fab fa-reddit-alien fa-2x"></i></a>
+                <a href="https://nineactgames.itch.io" target="_blank" class="hover:text-white transition duration-300"><i class="fab fa-itch-io fa-2x"></i></a>
+                <a href="https://gamejolt.com/@nineactgames" target="_blank" class="hover:text-white transition duration-300"><i class="fab fa-gamepad fa-2x"></i></a>
+            </div>
+            <p class="text-lg">&copy; 2024 Nineact Games. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

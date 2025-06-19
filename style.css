@@ -1,0 +1,35 @@
+/* style.css - Custom CSS for additional styling beyond Tailwind */
+
+/*
+   Note: Tailwind CSS is directly included in each HTML file via CDN,
+   and its configuration is set in the <script> block.
+   This file is for any *additional* custom styles not easily achievable
+   with Tailwind utility classes, or for overrides.
+*/
+
+/* Custom scrollbar for a darker, more premium look */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1a202c; /* dark-bg */
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #4a5568; /* a slightly lighter dark gray */
+    border-radius: 10px;
+    border: 3px solid #1a202c; /* border to match track color */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #64748b; /* even lighter on hover */
+}
+
+/* General body styling (optional, as Tailwind handles most) */
+body {
+    scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+}
+
+/* Add any other custom CSS here if needed */
