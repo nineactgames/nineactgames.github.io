@@ -1,172 +1,1494 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nineact Games - Home</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NineAct Games</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #060810;
+      --bg2: #0d1120;
+      --bg3: #121828;
+      --blue: #1a7fff;
+      --blue-light: #5aaeff;
+      --blue-dark: #0d4fa8;
+      --pink: #e91e8c;
+      --orange: #ff6b1a;
+      --yellow: #ffb800;
+      --text: #e8eaf0;
+      --text-dim: #8892a4;
+      --border: rgba(255,255,255,0.07);
+      --glow-blue: 0 0 30px rgba(26,127,255,0.35);
+      --glow-pink: 0 0 30px rgba(233,30,140,0.35);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Noise texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 70px;
+      background: rgba(6,8,16,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .nav-logo svg { width: 44px; height: 44px; }
+    .nav-logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+    .nav-logo-text .n1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 3px;
+      color: var(--text);
+    }
+    .nav-logo-text .n2 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 10px;
+      letter-spacing: 4px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .nav-links button {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      padding: 8px 16px;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+    .nav-links button:hover, .nav-links button.active {
+      color: var(--text);
+      background: rgba(255,255,255,0.06);
+    }
+    .nav-links button.active { color: var(--blue-light); }
+
+    /* PAGES */
+    .page { display: none; padding-top: 70px; min-height: 100vh; }
+    .page.active { display: block; }
+
+    /* ============ HOME PAGE ============ */
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 70px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 40px;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 25% 60%, rgba(26,127,255,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 60% at 75% 40%, rgba(233,30,140,0.10) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 50% 90%, rgba(255,107,26,0.07) 0%, transparent 60%);
+    }
+
+    /* Grid lines */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(26,127,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26,127,255,0.05) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+    }
+
+    .hero-logo-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 32px;
+      animation: fadeUp 0.8s ease forwards;
+    }
+    .hero-logo-wrap svg { width: 120px; height: 120px; filter: drop-shadow(0 0 30px rgba(26,127,255,0.4)); }
+
+    .hero-tagline {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--blue-light);
+      margin-bottom: 16px;
+      animation: fadeUp 0.8s 0.1s ease both;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 9vw, 110px);
+      line-height: 0.95;
+      letter-spacing: 2px;
+      margin-bottom: 24px;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+    .hero-title span.grad {
+      background: linear-gradient(135deg, var(--blue-light), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--text-dim);
+      max-width: 520px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      color: #fff;
+      border: none;
+      padding: 14px 36px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 4px;
+      box-shadow: 0 4px 24px rgba(26,127,255,0.3);
+      transition: all 0.25s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(26,127,255,0.5);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-dim);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 14px 36px;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.25s;
+    }
+    .btn-outline:hover {
+      border-color: rgba(255,255,255,0.35);
+      color: var(--text);
+      background: rgba(255,255,255,0.04);
+    }
+
+    /* FEATURED GAME SECTION */
+    .section {
+      padding: 80px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 5vw, 60px);
+      letter-spacing: 2px;
+      margin-bottom: 48px;
+    }
+
+    .featured-game {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .featured-game:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(233,30,140,0.2);
+    }
+
+    .featured-game-art {
+      position: relative;
+      height: 380px;
+      background: linear-gradient(135deg, #0a0d1a, #1a0510, #0a0a15);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ashuchi-art {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ASHUCHI decorative art */
+    .ashuchi-glow {
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(180,0,60,0.25) 0%, rgba(233,30,140,0.1) 40%, transparent 70%);
+      animation: pulse 3s ease-in-out infinite;
+    }
+    .ashuchi-symbol {
+      position: relative;
+      z-index: 2;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 160px;
+      line-height: 1;
+      background: linear-gradient(180deg, #ff3366 0%, #8b0000 50%, #3d0010 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 20px rgba(233,30,140,0.5));
+      letter-spacing: -8px;
+    }
+    .ashuchi-particles {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(233,30,140,0.6) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.15;
+      animation: drift 8s linear infinite;
+    }
+    .ashuchi-chains {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 20px,
+        rgba(150,0,50,0.06) 20px,
+        rgba(150,0,50,0.06) 21px
+      );
+    }
+    .game-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(233,30,140,0.15);
+      border: 1px solid rgba(233,30,140,0.3);
+      color: #ff6da0;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      padding: 6px 12px;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+    .engine-badge {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      background: rgba(26,127,255,0.12);
+      border: 1px solid rgba(26,127,255,0.2);
+      color: var(--blue-light);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      padding: 5px 10px;
+      border-radius: 3px;
+    }
+
+    .featured-game-info {
+      padding: 48px 40px 48px 0;
+    }
+    .game-genre {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      color: var(--pink);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .game-title-main {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 52px;
+      line-height: 1;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+    .game-subtitle {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      color: var(--orange);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .game-desc {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-dim);
+      line-height: 1.75;
+      margin-bottom: 28px;
+    }
+    .game-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .tag {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-dim);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      padding: 5px 12px;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+    .tag.highlight { border-color: rgba(233,30,140,0.3); color: #ff6da0; background: rgba(233,30,140,0.08); }
+
+    .game-meta {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .meta-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+    .meta-value {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* SOCIALS SECTION */
+    .socials-strip {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 40px;
+    }
+    .socials-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .socials-text h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 2px;
+      margin-bottom: 4px;
+    }
+    .socials-text p {
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+    .social-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px;
+      color: var(--text-dim);
+      text-decoration: none;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+    .social-link:hover {
+      border-color: rgba(255,255,255,0.2);
+      color: var(--text);
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-2px);
+    }
+    .social-link svg { width: 16px; height: 16px; }
+
+    /* ============ GAMES PAGE ============ */
+    .games-hero {
+      padding: 80px 40px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .games-hero-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 5px;
+      color: var(--blue-light);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .games-hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 7vw, 90px);
+      letter-spacing: 3px;
+      line-height: 0.95;
+      margin-bottom: 16px;
+    }
+    .games-hero-sub {
+      font-size: 15px;
+      color: var(--text-dim);
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    /* ASHUCHI Full Detail */
+    .ashuchi-full {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px 100px;
+    }
+
+    .ashuchi-header {
+      position: relative;
+      background: linear-gradient(135deg, #0a0d1a 0%, #1a0512 50%, #100a1a 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      padding: 64px;
+      margin-bottom: 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .ashuchi-header-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 80% 50%, rgba(180,0,60,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(26,127,255,0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .ashuchi-header-lines {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        -30deg, transparent, transparent 60px,
+        rgba(150,0,50,0.04) 60px, rgba(150,0,50,0.04) 61px
+      );
+    }
+
+    .ashuchi-info { position: relative; z-index: 2; }
+    .ashuchi-platform {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .platform-tag {
+      background: rgba(26,127,255,0.15);
+      border: 1px solid rgba(26,127,255,0.25);
+      color: var(--blue-light);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      padding: 5px 12px;
+      border-radius: 3px;
+    }
+    .platform-tag.console {
+      background: rgba(233,30,140,0.1);
+      border-color: rgba(233,30,140,0.2);
+      color: #ff6da0;
+    }
+
+    .ashuchi-big-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(56px, 6vw, 80px);
+      letter-spacing: 3px;
+      line-height: 0.95;
+      margin-bottom: 8px;
+    }
+    .ashuchi-big-sub {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      color: var(--orange);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .ashuchi-logline {
+      font-size: 16px;
+      font-style: italic;
+      color: var(--text-dim);
+      line-height: 1.7;
+      border-left: 3px solid var(--pink);
+      padding-left: 20px;
+      margin-bottom: 32px;
+    }
+    .ashuchi-price-row {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .price-usd {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      letter-spacing: 2px;
+      color: var(--text);
+    }
+    .price-inr {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-dim);
+    }
+    .rating-tag {
+      background: rgba(255,184,0,0.1);
+      border: 1px solid rgba(255,184,0,0.25);
+      color: var(--yellow);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      padding: 6px 14px;
+      border-radius: 3px;
+    }
+
+    .ashuchi-visual-side {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 320px;
+    }
+
+    .ashuchi-logo-big {
+      position: relative;
+    }
+    .ashuchi-ring {
+      position: absolute;
+      inset: -40px;
+      border-radius: 50%;
+      border: 1px solid rgba(233,30,140,0.2);
+      animation: spin 20s linear infinite;
+    }
+    .ashuchi-ring::before {
+      content: '';
+      position: absolute;
+      top: -3px; left: 50%;
+      width: 6px; height: 6px;
+      background: var(--pink);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--pink);
+    }
+    .ashuchi-text-art {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 80px;
+      line-height: 1;
+      background: linear-gradient(180deg, #ff3366 0%, #8b0000 60%, #3d0010 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 30px rgba(233,30,140,0.6));
+      position: relative;
+      z-index: 2;
+      letter-spacing: 4px;
+    }
+
+    /* CONTENT SECTIONS */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 32px;
+      margin-bottom: 48px;
+    }
+
+    .content-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 36px;
+    }
+
+    .card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .card-title::before {
+      content: '';
+      width: 3px;
+      height: 24px;
+      background: linear-gradient(var(--pink), var(--orange));
+      border-radius: 2px;
+    }
+
+    .story-text {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-dim);
+      line-height: 1.85;
+    }
+    .story-text p + p { margin-top: 16px; }
+    .story-text strong { color: var(--text); font-weight: 500; }
+
+    .enemies-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .enemy-card {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px;
+      padding: 16px 20px;
+      transition: all 0.2s;
+    }
+    .enemy-card:hover {
+      border-color: rgba(233,30,140,0.25);
+      background: rgba(233,30,140,0.04);
+    }
+    .enemy-name {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--text);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .enemy-role {
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+    .enemy-icon {
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .tech-item {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(26,127,255,0.1);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .tech-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+    .tech-value {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--blue-light);
+    }
+
+    /* ============ ABOUT PAGE ============ */
+    .about-hero {
+      padding: 80px 40px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-text-side .about-label {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 5px;
+      color: var(--orange);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .about-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 6vw, 80px);
+      letter-spacing: 3px;
+      line-height: 0.95;
+      margin-bottom: 24px;
+    }
+    .about-body {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-dim);
+      line-height: 1.85;
+    }
+    .about-body p + p { margin-top: 16px; }
+
+    .about-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .about-logo-display {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .about-ring1 {
+      position: absolute;
+      inset: -20px;
+      border-radius: 50%;
+      border: 1px solid rgba(26,127,255,0.2);
+      animation: spin 15s linear infinite;
+    }
+    .about-ring2 {
+      position: absolute;
+      inset: -50px;
+      border-radius: 50%;
+      border: 1px solid rgba(233,30,140,0.12);
+      animation: spin 25s linear infinite reverse;
+    }
+    .about-ring1::after, .about-ring2::after {
+      content: '';
+      position: absolute;
+      top: -3px; left: 50%;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+    }
+    .about-ring1::after { background: var(--blue); box-shadow: 0 0 10px var(--blue); }
+    .about-ring2::after { background: var(--pink); box-shadow: 0 0 10px var(--pink); }
+
+    .about-logo-display svg {
+      width: 160px;
+      height: 160px;
+      filter: drop-shadow(0 0 30px rgba(26,127,255,0.3));
+      position: relative;
+      z-index: 2;
+    }
+
+    .about-stats {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px 60px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .stat-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 36px;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    .stat-card:hover { transform: translateY(-4px); }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 56px;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, var(--blue-light), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+    .stat-desc {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+
+    .community-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+    .community-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .community-card {
+      display: block;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 28px 24px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .community-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--pink));
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+    .community-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.15); }
+    .community-card:hover::before { transform: scaleX(1); }
+    .community-icon { font-size: 28px; margin-bottom: 12px; }
+    .community-name {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .community-handle {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+    .community-arrow {
+      position: absolute;
+      top: 28px; right: 24px;
+      font-size: 18px;
+      color: var(--text-dim);
+      opacity: 0;
+      transition: all 0.2s;
+    }
+    .community-card:hover .community-arrow { opacity: 1; transform: translate(4px, -4px); }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 40px;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .footer-logo svg { width: 32px; height: 32px; }
+    .footer-copy {
+      font-size: 12px;
+      color: var(--text-dim);
+      letter-spacing: 1px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+    .footer-links a {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--text-dim);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    @keyframes drift {
+      from { background-position: 0 0; }
+      to   { background-position: 40px 40px; }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links button { padding: 6px 10px; font-size: 11px; }
+      .hero { padding: 60px 20px; }
+      .featured-game { grid-template-columns: 1fr; }
+      .featured-game-art { height: 220px; }
+      .featured-game-info { padding: 32px 24px; }
+      .section { padding: 60px 20px; }
+      .socials-strip { padding: 40px 20px; }
+      .ashuchi-header { grid-template-columns: 1fr; padding: 32px; gap: 32px; }
+      .content-grid { grid-template-columns: 1fr; }
+      .about-hero { grid-template-columns: 1fr; padding: 60px 20px 40px; }
+      .about-stats { grid-template-columns: 1fr; padding: 0 20px 40px; }
+      .community-grid { grid-template-columns: 1fr 1fr; padding: 0; }
+      .ashuchi-full, .games-hero, .community-section { padding-left: 20px; padding-right: 20px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
 </head>
-<body class="bg-gray-900 text-white font-inter">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        inter: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        'primary-blue': '#007bff',
-                        'primary-red': '#dc3545',
-                        'dark-bg': '#1a202c',
-                        'dark-card': '#2d3748',
-                        'dark-text': '#e2e8f0',
-                        'gradient-start-blue': '#225BF4',
-                        'gradient-end-pink': '#E455E8',
-                        'gradient-mid-purple': '#8E40EE'
-                    }
-                }
-            }
-        }
-    </script>
+<body>
 
-    <header class="bg-dark-bg py-4 shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto flex justify-between items-center px-4">
-            <div class="flex items-center">
-                <img src="https://placehold.co/80x80/000000/FFFFFF?text=9A" alt="Nineact Games Logo" class="h-16 w-16 mr-3 rounded-full">
-                <span class="text-xl md:text-3xl font-bold bg-gradient-to-r from-gradient-start-blue via-gradient-mid-purple to-gradient-end-pink text-transparent bg-clip-text">NINEACT GAMES</span>
-            </div>
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" onclick="showPage('home')">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <!-- 9 shape -->
+      <defs>
+        <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#5aaeff"/>
+          <stop offset="50%" stop-color="#1a7fff"/>
+          <stop offset="100%" stop-color="#0d4fa8"/>
+        </linearGradient>
+        <linearGradient id="pinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#e91e8c"/>
+          <stop offset="50%" stop-color="#e03060"/>
+          <stop offset="100%" stop-color="#ff8c00"/>
+        </linearGradient>
+      </defs>
+      <!-- 9 digit -->
+      <circle cx="38" cy="32" r="22" fill="none" stroke="url(#blueGrad)" stroke-width="14"/>
+      <line x1="56" y1="32" x2="56" y2="80" stroke="url(#blueGrad)" stroke-width="14" stroke-linecap="round"/>
+      <!-- A shape -->
+      <polygon points="65,15 90,85 40,85" fill="url(#pinkGrad)" opacity="0.9"/>
+      <polygon points="65,45 78,75 52,75" fill="#060810" opacity="0.95"/>
+    </svg>
+    <div class="nav-logo-text">
+      <span class="n1">NINEACT</span>
+      <span class="n2">Games</span>
+    </div>
+  </a>
+  <div class="nav-links">
+    <button onclick="showPage('home')" id="nav-home" class="active">Home</button>
+    <button onclick="showPage('games')" id="nav-games">Games</button>
+    <button onclick="showPage('about')" id="nav-about">Studio</button>
+  </div>
+</nav>
 
-            <div class="md:hidden flex items-center">
-                <button id="mobile-menu-button" class="text-white text-2xl focus:outline-none">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
+<!-- ============================================================ HOME PAGE -->
+<div class="page active" id="page-home">
 
-            <div id="mobile-menu" class="hidden md:flex flex-col md:flex-row md:items-center md:justify-between w-full md:w-auto absolute md:static bg-dark-bg md:bg-transparent left-0 mt-2 md:mt-0 py-4 md:py-0 px-4 md:px-0 rounded-lg md:rounded-none shadow-lg md:shadow-none top-full">
-                <nav class="mb-4 md:mb-0">
-                    <ul class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8 text-lg font-semibold">
-                        <li><a href="index.html" class="block py-2 hover:text-primary-blue transition duration-300">Home</a></li>
-                        <li><a href="games.html" class="block py-2 hover:text-primary-blue transition duration-300">Our Games</a></li>
-                        <li><a href="about.html" class="block py-2 hover:text-primary-blue transition duration-300">About Us</a></li>
-                    </ul>
-                </nav>
-                <div class="flex flex-wrap justify-center md:justify-start space-x-6">
-                    <a href="https://instagram.com/nineactgames" target="_blank" class="text-white hover:text-pink-500 transition duration-300"><i class="fab fa-instagram fa-lg"></i></a>
-                    <a href="https://twitter.com/nineactgames" target="_blank" class="text-white hover:text-blue-400 transition duration-300"><i class="fab fa-twitter fa-lg"></i></a>
-                    <a href="https://youtube.com/@nineactgames" target="_blank" class="text-white hover:text-red-600 transition duration-300"><i class="fab fa-youtube fa-lg"></i></a>
-                    <a href="https://linkedin.com/company/nineactgames" target="_blank" class="text-white hover:text-blue-700 transition duration-300"><i class="fab fa-linkedin fa-lg"></i></a>
-                    <a href="https://discord.gg/MMxm4xUB" target="_blank" class="text-white hover:text-purple-500 transition duration-300"><i class="fab fa-discord fa-lg"></i></a>
-                    <a href="https://github.com/nineactgames" target="_blank" class="text-white hover:text-gray-400 transition duration-300"><i class="fab fa-github fa-lg"></i></a>
-                    <a href="https://reddit.com/user/nineactgames" target="_blank" class="text-white hover:text-orange-500 transition duration-300"><i class="fab fa-reddit-alien fa-lg"></i></a>
-                    <a href="https://nineactgames.itch.io" target="_blank" class="text-white hover:text-red-700 transition duration-300"><i class="fab fa-itch-io fa-lg"></i></a>
-                    <a href="https://gamejolt.com/@nineactgames" target="_blank" class="text-white hover:text-yellow-500 transition duration-300"><i class="fab fa-gamepad fa-lg"></i></a>
-                </div>
-            </div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+      <div class="hero-logo-wrap">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="hBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#5aaeff"/>
+              <stop offset="50%" stop-color="#1a7fff"/>
+              <stop offset="100%" stop-color="#0d4fa8"/>
+            </linearGradient>
+            <linearGradient id="hPink" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#e91e8c"/>
+              <stop offset="50%" stop-color="#e03060"/>
+              <stop offset="100%" stop-color="#ff8c00"/>
+            </linearGradient>
+          </defs>
+          <circle cx="38" cy="32" r="22" fill="none" stroke="url(#hBlue)" stroke-width="14"/>
+          <line x1="56" y1="32" x2="56" y2="80" stroke="url(#hBlue)" stroke-width="14" stroke-linecap="round"/>
+          <polygon points="65,15 90,85 40,85" fill="url(#hPink)" opacity="0.9"/>
+          <polygon points="65,45 78,75 52,75" fill="#060810" opacity="0.95"/>
+        </svg>
+      </div>
+      <div class="hero-tagline">Independent Game Studio · Jaipur, India</div>
+      <h1 class="hero-title">
+        STORIES<br>THAT <span class="grad">HAUNT</span><br>YOU
+      </h1>
+      <p class="hero-sub">We build unforgettable worlds where every design decision serves the story. Horror, mystery, and dread — crafted with intention.</p>
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="showPage('games')">View Our Games</button>
+        <button class="btn-outline" onclick="showPage('about')">Our Studio</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED GAME -->
+  <div class="section">
+    <div class="section-label">Featured Title</div>
+    <div class="section-title">Now in Development</div>
+    <div class="featured-game" onclick="showPage('games')">
+      <div class="featured-game-art">
+        <div class="ashuchi-art">
+          <div class="ashuchi-chains"></div>
+          <div class="ashuchi-particles"></div>
+          <div class="ashuchi-glow"></div>
+          <div class="ashuchi-symbol">A</div>
+          <span class="game-badge">In Development</span>
+          <span class="engine-badge">Unreal Engine 5</span>
         </div>
-    </header>
-
-    <section class="relative h-screen flex items-center justify-center text-center overflow-hidden">
-        <video autoplay muted loop class="absolute inset-0 w-full h-full object-cover z-0 opacity-30">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-futuristic-scene-with-glowing-lines-4560-large.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="relative z-10 p-8 bg-black bg-opacity-50 rounded-lg shadow-2xl backdrop-blur-sm mx-4">
-            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 animate-pulse bg-gradient-to-r from-cyan-400 to-purple-600 text-transparent bg-clip-text">
-                Immersive Worlds, Unforgettable Adventures.
-            </h1>
-            <p class="text-lg md:text-2xl text-gray-300 mb-10">
-                Crafting the future of interactive entertainment.
-            </p>
-            <a href="games.html" class="px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-gradient-start-blue to-gradient-end-pink text-white text-lg md:text-xl font-bold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out">
-                Explore Our Games
-            </a>
+      </div>
+      <div class="featured-game-info">
+        <div class="game-genre">Psychological Horror</div>
+        <h2 class="game-title-main">ASHUCHI</h2>
+        <div class="game-subtitle">Curse of Greed</div>
+        <p class="game-desc">Trapped in a cursed factory haunted by the vengeful ghosts of four corrupt workers, you must survive the night — and uncover the truth behind their unending torment.</p>
+        <div class="game-tags">
+          <span class="tag highlight">Horror</span>
+          <span class="tag">Survival</span>
+          <span class="tag">UE5</span>
+          <span class="tag">PC</span>
+          <span class="tag highlight">India-Made</span>
         </div>
-    </section>
-
-    <section class="py-10 md:py-20 bg-dark-card text-dark-text rounded-lg shadow-xl mx-auto max-w-7xl my-8 md:my-16 p-6 md:p-10">
-        <div class="container mx-auto text-center">
-            <h2 class="text-3xl md:text-5xl font-extrabold mb-6 md:mb-10 bg-gradient-to-r from-red-500 to-yellow-500 text-transparent bg-clip-text">About Nineact Games</h2>
-            <p class="text-base md:text-xl leading-relaxed max-w-4xl mx-auto">
-                Nineact Games is an innovative game development studio dedicated to creating captivating and immersive experiences.
-                We believe in pushing the boundaries of interactive storytelling and gameplay, bringing unique worlds to life
-                for players across the globe. Join us on our journey to redefine gaming.
-            </p>
-            <a href="about.html" class="mt-8 md:mt-12 inline-block px-6 py-2 md:px-8 md:py-3 border border-primary-blue text-primary-blue font-semibold rounded-full hover:bg-primary-blue hover:text-white transition duration-300 shadow-md text-base md:text-lg">
-                Learn More About Us
-            </a>
+        <div class="game-meta">
+          <div class="meta-item">
+            <span class="meta-label">Release Target</span>
+            <span class="meta-value">April 2027</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Price</span>
+            <span class="meta-value">$14.99</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Platform</span>
+            <span class="meta-value">PC Primary</span>
+          </div>
         </div>
-    </section>
+        <button class="btn-primary" onclick="showPage('games')">Learn More</button>
+      </div>
+    </div>
+  </div>
 
-    <section class="py-10 md:py-20 bg-gray-900 text-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl md:text-5xl font-extrabold text-center mb-10 md:mb-16 bg-gradient-to-r from-green-400 to-blue-500 text-transparent bg-clip-text">Featured Games</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-                <div class="bg-dark-card rounded-xl shadow-2xl overflow-hidden transform hover:scale-105 transition duration-300 group">
-                    <img src="https://placehold.co/600x400/3498db/FFFFFF?text=Game+Title+1" alt="Game Title 1 Thumbnail" class="w-full h-48 md:h-64 object-cover">
-                    <div class="p-6 md:p-8">
-                        <h3 class="text-2xl md:text-3xl font-bold mb-2 md:mb-4 group-hover:text-primary-blue transition duration-300">Epic Fantasy Quest</h3>
-                        <p class="text-gray-300 leading-relaxed mb-4 md:mb-6 text-sm md:text-base">Embark on a grand adventure in a realm filled with magic, mythical creatures, and ancient mysteries. Forge your destiny!</p>
-                        <a href="games.html#game1" class="inline-block bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold py-2 px-4 md:py-3 md:px-6 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300 text-sm md:text-base">View Details</a>
-                    </div>
-                </div>
+  <!-- SOCIALS -->
+  <div class="socials-strip">
+    <div class="socials-inner">
+      <div class="socials-text">
+        <h3>JOIN THE COMMUNITY</h3>
+        <p>Follow along as we build NineAct Games from the ground up.</p>
+      </div>
+      <div class="social-links">
+        <a class="social-link" href="https://instagram.com/nineactgames" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          Instagram
+        </a>
+        <a class="social-link" href="https://twitter.com/nineactgames" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          Twitter / X
+        </a>
+        <a class="social-link" href="https://youtube.com/@nineactgames" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          YouTube
+        </a>
+        <a class="social-link" href="https://discord.gg/MMxm4xUB" target="_blank">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.13.104 18.2.118 18.27a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+          Discord
+        </a>
+      </div>
+    </div>
+  </div>
 
-                <div class="bg-dark-card rounded-xl shadow-2xl overflow-hidden transform hover:scale-105 transition duration-300 group">
-                    <img src="https://placehold.co/600x400/e74c3c/FFFFFF?text=Game+Title+2" alt="Game Title 2 Thumbnail" class="w-full h-48 md:h-64 object-cover">
-                    <div class="p-6 md:p-8">
-                        <h3 class="text-2xl md:text-3xl font-bold mb-2 md:mb-4 group-hover:text-primary-blue transition duration-300">Sci-Fi Colony Builder</h3>
-                        <p class="text-gray-300 leading-relaxed mb-4 md:mb-6 text-sm md:text-base">Establish and manage a thriving colony on a distant, alien planet. Survive, innovate, and expand!</p>
-                        <a href="games.html#game2" class="inline-block bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold py-2 px-4 md:py-3 md:px-6 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300 text-sm md:text-base">View Details</a>
-                    </div>
-                </div>
+</div>
 
-                <div class="bg-dark-card rounded-xl shadow-2xl overflow-hidden transform hover:scale-105 transition duration-300 group">
-                    <img src="https://placehold.co/600x400/f39c12/FFFFFF?text=Game+Title+3" alt="Game Title 3 Thumbnail" class="w-full h-48 md:h-64 object-cover">
-                    <div class="p-6 md:p-8">
-                        <h3 class="text-2xl md:text-3xl font-bold mb-2 md:mb-4 group-hover:text-primary-blue transition duration-300">Mystery Detective Story</h3>
-                        <p class="text-gray-300 leading-relaxed mb-4 md:mb-6 text-sm md:text-base">Unravel intricate mysteries in a noir-inspired city. Collect clues, interrogate suspects, and expose the truth.</p>
-                        <a href="games.html#game3" class="inline-block bg-gradient-to-r from-purple-600 to-pink-500 text-white font-semibold py-2 px-4 md:py-3 md:px-6 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300 text-sm md:text-base">View Details</a>
-                    </div>
-                </div>
-            </div>
-            <div class="text-center mt-10 md:mt-16">
-                <a href="games.html" class="px-8 py-3 md:px-10 md:py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-lg md:text-xl font-bold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-300 ease-in-out">
-                    View All Games
-                </a>
-            </div>
+<!-- ============================================================ GAMES PAGE -->
+<div class="page" id="page-games">
+
+  <div class="games-hero">
+    <div class="games-hero-label">Our Games</div>
+    <h1 class="games-hero-title">THE<br>LINEUP</h1>
+    <p class="games-hero-sub">We are a focused studio. One game. All in. Crafted with care from Jaipur, India.</p>
+  </div>
+
+  <div class="ashuchi-full">
+
+    <!-- ASHUCHI HEADER -->
+    <div class="ashuchi-header">
+      <div class="ashuchi-header-bg"></div>
+      <div class="ashuchi-header-lines"></div>
+
+      <div class="ashuchi-info">
+        <div class="ashuchi-platform">
+          <span class="platform-tag">PC — Primary</span>
+          <span class="platform-tag console">Console — Secondary</span>
         </div>
-    </section>
-
-    <section class="py-10 md:py-20 bg-dark-bg text-dark-text text-center rounded-lg shadow-xl mx-auto max-w-7xl my-8 md:my-16 p-6 md:p-10">
-        <h2 class="text-3xl md:text-5xl font-extrabold mb-6 md:mb-8 bg-gradient-to-r from-purple-400 to-red-400 text-transparent bg-clip-text">Stay Updated!</h2>
-        <p class="text-base md:text-xl mb-8 md:mb-10 max-w-3xl mx-auto">
-            Join our community to get the latest news, updates, and exclusive content directly in your inbox.
+        <h2 class="ashuchi-big-title">ASHUCHI</h2>
+        <div class="ashuchi-big-sub">Curse of Greed</div>
+        <p class="ashuchi-logline">
+          "What does the factory want? It wants you to feel what they felt — cornered, helpless, and cursed by greed."
         </p>
-        <form class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
-            <input type="email" placeholder="Enter your email" class="p-3 md:p-4 rounded-full bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-primary-blue focus:border-transparent text-base md:text-lg w-full md:w-96 text-white" required>
-            <button type="submit" class="px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-green-500 to-blue-500 text-white font-bold rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition duration-300 text-base md:text-lg">Subscribe Now</button>
-        </form>
-    </section>
-
-    <footer class="bg-gray-800 py-6 md:py-10 text-gray-400 text-center">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-wrap justify-center space-x-4 md:space-x-6 mb-4 md:mb-6">
-                <a href="https://instagram.com/nineactgames" target="_blank" class="hover:text-white transition duration-300 text-xl md:text-2xl"><i class="fab fa-instagram"></i></a>
-                <a href="https://twitter.com/nineactgames" target="_blank" class="hover:text-white transition duration-300 text-xl md:text-2xl"><i class="fab fa-twitter"></i></a>
-                <a href="https://youtube.com/@nineactgames" target="_blank" class="hover:text-white transition duration-300 text-xl md:text-2xl"><i class="fab fa-youtube"></i></a>
-                <a href="https://linkedin.com/company/nineactgames" target="_blank" class="hover:text-white transition duration-300 text-xl md:text-2xl"><i class="fab fa-linkedin"></i></a>
-                <a href="https://discord.gg/MMxm4xUB" target="_blank" class="hover:text-white transition duration-300 text-xl md:text-2xl"><i class="fab fa-discord"></i></a>
-                <a href="https://github.com/nineactgames" target="_blank" class="hover:text-white transition duration-300 text-xl md:text-2xl"><i class="fab fa-github"></i></a>
-                <a href="https://reddit.com/user/nineactgames" target="_blank" class="hover:text-white transition duration-300 text-xl md:text-2xl"><i class="fab fa-reddit-alien"></i></a>
-                <a href="https://nineactgames.itch.io" target="_blank" class="hover:text-white transition duration-300 text-xl md:text-2xl"><i class="fab fa-itch-io"></i></a>
-                <a href="https://gamejolt.com/@nineactgames" target="_blank" class="hover:text-white transition duration-300 text-xl md:text-2xl"><i class="fab fa-gamepad"></i></a>
-            </div>
-            <p class="text-sm md:text-lg">© 2024 Nineact Games. All rights reserved.</p>
+        <div class="ashuchi-price-row">
+          <span class="price-usd">$14.99</span>
+          <span class="price-inr">/ ₹499</span>
+          <span class="rating-tag">PEGI 16 · T for Teen</span>
         </div>
-    </footer>
+      </div>
 
-    <script src="script.js"></script>
+      <div class="ashuchi-visual-side">
+        <div class="ashuchi-logo-big">
+          <div class="ashuchi-ring"></div>
+          <div class="ashuchi-text-art">ASH</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STORY + ENEMIES -->
+    <div class="content-grid">
+
+      <div class="content-card">
+        <h3 class="card-title">The Story</h3>
+        <div class="story-text">
+          <p>You are trapped inside an abandoned factory that should have been silent decades ago. But the walls still breathe. The machines still groan. And somewhere in the dark — <strong>they are waiting for you.</strong></p>
+          <p>Four factory workers, corrupted by greed and destroyed by the very system they served, now haunt these halls as vengeful ghosts. Each one carries the weight of their sins: <strong>the foreman who covered up deaths, the accountant who falsified records, the manager who took bribes, and the inspector who looked away.</strong></p>
+          <p>ASHUCHI — meaning "impure" — is both their curse and their identity. But hidden within the nightmare is a darker truth: <em>their guilt is real, and so is the possibility of their redemption.</em></p>
+          <p>Survive the night. Learn the truth. And decide — do they deserve to be free?</p>
+          <p style="margin-top:20px; padding: 16px; background: rgba(233,30,140,0.06); border: 1px solid rgba(233,30,140,0.15); border-radius: 8px; font-size: 14px;">
+            <strong style="color: var(--pink);">Good Ending:</strong> In the SHUCHI path — the pure ending — all four ghosts find redemption. The title itself transforms in meaning: from Ashuchi (impure) to Shuchi (pure). The factory falls silent at last.
+          </p>
+        </div>
+      </div>
+
+      <div class="content-card">
+        <h3 class="card-title">The Enemies</h3>
+        <div class="enemies-list">
+          <div class="enemy-card">
+            <div class="enemy-icon">👁️</div>
+            <div class="enemy-name">Shadow Stalker</div>
+            <div class="enemy-role">The Foreman. Hunts by sound. Patrols the factory floor with terrifying persistence.</div>
+          </div>
+          <div class="enemy-card">
+            <div class="enemy-icon">🔧</div>
+            <div class="enemy-name">Twisted Worker</div>
+            <div class="enemy-role">The Accountant. Unpredictable path patterns. Reacts to light sources.</div>
+          </div>
+          <div class="enemy-card">
+            <div class="enemy-icon">🪬</div>
+            <div class="enemy-name">The Watcher</div>
+            <div class="enemy-role">The Manager. Stationary but omniscient. Sees everything in its line of sight.</div>
+          </div>
+          <div class="enemy-card">
+            <div class="enemy-icon">💧</div>
+            <div class="enemy-name">The Drowned</div>
+            <div class="enemy-role">The Inspector. Inhabits flooded sections. Fast. Relentless. Inescapable underwater.</div>
+          </div>
+          <div class="enemy-card">
+            <div class="enemy-icon">🏭</div>
+            <div class="enemy-name">The Factory</div>
+            <div class="enemy-role">The building itself. Environmental hazards, traps, and machinery that conspires against you.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TECH -->
+    <div class="content-card" style="margin-bottom: 32px;">
+      <h3 class="card-title">Technology & Specs</h3>
+      <div class="tech-grid">
+        <div class="tech-item">
+          <span class="tech-label">Engine</span>
+          <span class="tech-value">Unreal Engine 5</span>
+        </div>
+        <div class="tech-item">
+          <span class="tech-label">Rendering</span>
+          <span class="tech-value">Nanite + Lumen + TSR</span>
+        </div>
+        <div class="tech-item">
+          <span class="tech-label">Scripting</span>
+          <span class="tech-value">Blueprint + C++</span>
+        </div>
+        <div class="tech-item">
+          <span class="tech-label">Primary Platform</span>
+          <span class="tech-value">PC (Windows)</span>
+        </div>
+        <div class="tech-item">
+          <span class="tech-label">Secondary Platform</span>
+          <span class="tech-value">Console</span>
+        </div>
+        <div class="tech-item">
+          <span class="tech-label">Gold Milestone</span>
+          <span class="tech-value">April 2027</span>
+        </div>
+        <div class="tech-item">
+          <span class="tech-label">GDD Version</span>
+          <span class="tech-value">v3.0</span>
+        </div>
+        <div class="tech-item">
+          <span class="tech-label">Content Rating</span>
+          <span class="tech-value">PEGI 16 / ESRB T</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ ABOUT PAGE -->
+<div class="page" id="page-about">
+
+  <div class="about-hero">
+    <div class="about-text-side">
+      <div class="about-label">Who We Are</div>
+      <h1 class="about-title">WE ARE<br>NINE<br>ACT</h1>
+      <div class="about-body">
+        <p>NineAct Games is an independent game studio based in Jaipur, India. We are storytellers first — every mechanic, every system, every line of dialogue serves the emotional truth of the game.</p>
+        <p>We believe that horror is at its most powerful when it is personal. When the fear comes not from what jumps out of the darkness, but from what the darkness reveals about the world — and about you.</p>
+        <p>We are building <strong>ASHUCHI: Curse of Greed</strong> — a psychological horror game that asks a simple, devastating question: can the guilty ever truly be forgiven?</p>
+        <p>Made in Unreal Engine 5. Made in India. Made with intention.</p>
+      </div>
+    </div>
+    <div class="about-visual">
+      <div class="about-logo-display">
+        <div class="about-ring1"></div>
+        <div class="about-ring2"></div>
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="aBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#5aaeff"/>
+              <stop offset="50%" stop-color="#1a7fff"/>
+              <stop offset="100%" stop-color="#0d4fa8"/>
+            </linearGradient>
+            <linearGradient id="aPink" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#e91e8c"/>
+              <stop offset="50%" stop-color="#e03060"/>
+              <stop offset="100%" stop-color="#ff8c00"/>
+            </linearGradient>
+          </defs>
+          <circle cx="38" cy="32" r="22" fill="none" stroke="url(#aBlue)" stroke-width="14"/>
+          <line x1="56" y1="32" x2="56" y2="80" stroke="url(#aBlue)" stroke-width="14" stroke-linecap="round"/>
+          <polygon points="65,15 90,85 40,85" fill="url(#aPink)" opacity="0.9"/>
+          <polygon points="65,45 78,75 52,75" fill="#060810" opacity="0.95"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="about-stats">
+    <div class="stat-card">
+      <div class="stat-num">1</div>
+      <div class="stat-desc">Game in Development</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">5</div>
+      <div class="stat-desc">Unique Enemy Types</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">UE5</div>
+      <div class="stat-desc">Built on Unreal Engine 5</div>
+    </div>
+  </div>
+
+  <!-- COMMUNITY -->
+  <div class="community-section">
+    <div class="section-label">Find Us Online</div>
+    <div class="section-title" style="margin-bottom: 32px;">Join the Community</div>
+    <div class="community-grid">
+      <a class="community-card" href="https://discord.gg/MMxm4xUB" target="_blank">
+        <div class="community-icon">💬</div>
+        <div class="community-name">Discord</div>
+        <div class="community-handle">discord.gg/MMxm4xUB</div>
+        <span class="community-arrow">↗</span>
+      </a>
+      <a class="community-card" href="https://reddit.com/r/NineactGames" target="_blank">
+        <div class="community-icon">🔴</div>
+        <div class="community-name">Reddit</div>
+        <div class="community-handle">r/NineactGames</div>
+        <span class="community-arrow">↗</span>
+      </a>
+      <a class="community-card" href="https://youtube.com/@nineactgames" target="_blank">
+        <div class="community-icon">▶️</div>
+        <div class="community-name">YouTube</div>
+        <div class="community-handle">@nineactgames</div>
+        <span class="community-arrow">↗</span>
+      </a>
+      <a class="community-card" href="https://instagram.com/nineactgames" target="_blank">
+        <div class="community-icon">📸</div>
+        <div class="community-name">Instagram</div>
+        <div class="community-handle">@nineactgames</div>
+        <span class="community-arrow">↗</span>
+      </a>
+      <a class="community-card" href="https://twitter.com/nineactgames" target="_blank">
+        <div class="community-icon">𝕏</div>
+        <div class="community-name">Twitter / X</div>
+        <div class="community-handle">@nineactgames</div>
+        <span class="community-arrow">↗</span>
+      </a>
+      <a class="community-card" href="https://linkedin.com/company/nineactgames" target="_blank">
+        <div class="community-icon">💼</div>
+        <div class="community-name">LinkedIn</div>
+        <div class="community-handle">NineAct Games</div>
+        <span class="community-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="fBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#5aaeff"/>
+            <stop offset="100%" stop-color="#0d4fa8"/>
+          </linearGradient>
+          <linearGradient id="fPink" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#e91e8c"/>
+            <stop offset="100%" stop-color="#ff8c00"/>
+          </linearGradient>
+        </defs>
+        <circle cx="38" cy="32" r="22" fill="none" stroke="url(#fBlue)" stroke-width="14"/>
+        <line x1="56" y1="32" x2="56" y2="80" stroke="url(#fBlue)" stroke-width="14" stroke-linecap="round"/>
+        <polygon points="65,15 90,85 40,85" fill="url(#fPink)" opacity="0.9"/>
+        <polygon points="65,45 78,75 52,75" fill="#0d1120" opacity="0.95"/>
+      </svg>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:3px;color:var(--text-dim);">NINEACT GAMES</span>
+    </div>
+    <span class="footer-copy">© 2025 NineAct Games. All rights reserved.</span>
+    <div class="footer-links">
+      <a href="https://instagram.com/nineactgames" target="_blank">Instagram</a>
+      <a href="https://twitter.com/nineactgames" target="_blank">Twitter</a>
+      <a href="https://youtube.com/@nineactgames" target="_blank">YouTube</a>
+      <a href="https://discord.gg/MMxm4xUB" target="_blank">Discord</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    document.getElementById('nav-' + id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
 </body>
 </html>
