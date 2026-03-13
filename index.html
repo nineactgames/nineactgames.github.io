@@ -706,7 +706,7 @@
     /* CONTENT SECTIONS */
     .content-grid {
       display: grid;
-      grid-template-columns: 2fr 1fr;
+      grid-template-columns: 1fr;
       gap: 32px;
       margin-bottom: 48px;
     }
@@ -1127,7 +1127,7 @@
           <polygon points="65,45 78,75 52,75" fill="#060810" opacity="0.95"/>
         </svg>
       </div>
-      <div class="hero-tagline">Independent Game Studio · Rajasthan, India</div>
+      <div class="hero-tagline">Independent Game Studio · India</div>
       <h1 class="hero-title">
         STORIES<br>THAT <span class="grad">HAUNT</span><br>YOU
       </h1>
@@ -1158,7 +1158,7 @@
         <div class="game-genre">Psychological Horror</div>
         <h2 class="game-title-main">ASHUCHI</h2>
         <div class="game-subtitle">Curse of Greed</div>
-        <p class="game-desc">Trapped in a cursed factory haunted by the vengeful ghosts of four corrupt workers, you must survive the night — and uncover the truth behind their unending torment.</p>
+        <p class="game-desc">A first-person psychological horror game set inside an abandoned factory. No weapons. No combat. Five unique threats, one night, and a factory that does not want you to leave.</p>
         <div class="game-tags">
           <span class="tag highlight">Horror</span>
           <span class="tag">Survival</span>
@@ -1221,7 +1221,7 @@
   <div class="games-hero">
     <div class="games-hero-label">Our Games</div>
     <h1 class="games-hero-title">THE<br>LINEUP</h1>
-    <p class="games-hero-sub">We are a focused studio. One game. All in. Crafted with care from Rajasthan, India.</p>
+    <p class="games-hero-sub">We are a focused studio. One game. All in. Crafted with care from India.</p>
   </div>
 
   <div class="ashuchi-full">
@@ -1239,7 +1239,7 @@
         <h2 class="ashuchi-big-title">ASHUCHI</h2>
         <div class="ashuchi-big-sub">Curse of Greed</div>
         <p class="ashuchi-logline">
-          "What does the factory want? It wants you to feel what they felt — cornered, helpless, and cursed by greed."
+          A first-person psychological horror game set inside an abandoned factory. No weapons. No combat. Just you, the dark, and what lives inside it.
         </p>
         <div class="ashuchi-price-row">
           <span class="price-usd">$14.99</span>
@@ -1256,50 +1256,149 @@
       </div>
     </div>
 
-    <!-- STORY + ENEMIES -->
-    <div class="content-grid">
+    <!-- EXPERIENCE CARDS -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:24px;">
+      <div class="content-card">
+        <h3 class="card-title">What We Are Building</h3>
+        <div class="story-text">
+          <p>ASHUCHI is built around one core idea: <strong>fear should mean something.</strong></p>
+          <p>We are not building jump scares. We are not building gore. We are building a game where the dread is atmospheric, slow, and deeply tied to the world you are exploring. Every room, every sound, every threat — it all connects to a larger truth the game wants you to discover.</p>
+          <p>The factory is the experience. Navigating it, surviving it, understanding it — that is the game.</p>
+        </div>
+      </div>
+      <div class="content-card">
+        <h3 class="card-title">How It Plays</h3>
+        <div class="story-text">
+          <p>You are alone. Five distinct threats move through the factory — each with completely different behavior that demands a completely different response from you.</p>
+          <p>Some hunt by sound. Some react to light. Some do not move at all, and that stillness is what makes them dangerous. No weapons. No combat. Only observation, patience, and the knowledge you earn by surviving long enough to learn.</p>
+          <p>ASHUCHI rewards players who think — not players who run.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; margin-bottom:32px;">
+      <div class="content-card" style="text-align:center; padding:36px 28px;">
+        <div style="font-size:36px; margin-bottom:16px;">🎧</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:2px; margin-bottom:10px;">Sound as a System</div>
+        <p style="font-size:14px; color:var(--text-dim); line-height:1.7;">Audio is not just ambience — it is information. What you hear tells you where threats are, what state they are in, and how much time you have left.</p>
+      </div>
+      <div class="content-card" style="text-align:center; padding:36px 28px;">
+        <div style="font-size:36px; margin-bottom:16px;">🧠</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:2px; margin-bottom:10px;">Narrative Horror</div>
+        <p style="font-size:14px; color:var(--text-dim); line-height:1.7;">The story does not interrupt gameplay. It lives inside it — in the environment, the layout, the behavior of every threat. The more you pay attention, the more the factory reveals.</p>
+      </div>
+      <div class="content-card" style="text-align:center; padding:36px 28px;">
+        <div style="font-size:36px; margin-bottom:16px;">🔀</div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:2px; margin-bottom:10px;">Two Ways Out</div>
+        <p style="font-size:14px; color:var(--text-dim); line-height:1.7;">Surviving the night is one ending. But there is another — one that demands more than staying alive. The choice you make determines the kind of player you are.</p>
+      </div>
+    </div>
+
+    <!-- ARCHIVED CONTENT HIDDEN -->
+    <div style="display:none">
 
       <div class="content-card">
         <h3 class="card-title">The Story</h3>
         <div class="story-text">
-          <p>You are trapped inside an abandoned factory that should have been silent decades ago. But the walls still breathe. The machines still groan. And somewhere in the dark — <strong>they are waiting for you.</strong></p>
-          <p>Four factory workers, corrupted by greed and destroyed by the very system they served, now haunt these halls as vengeful ghosts. Each one carries the weight of their sins: <strong>the foreman who covered up deaths, the accountant who falsified records, the manager who took bribes, and the inspector who looked away.</strong></p>
-          <p>ASHUCHI — meaning "impure" — is both their curse and their identity. But hidden within the nightmare is a darker truth: <em>their guilt is real, and so is the possibility of their redemption.</em></p>
-          <p>Survive the night. Learn the truth. And decide — do they deserve to be free?</p>
-          <p style="margin-top:20px; padding: 16px; background: rgba(233,30,140,0.06); border: 1px solid rgba(233,30,140,0.15); border-radius: 8px; font-size: 14px;">
-            <strong style="color: var(--pink);">Good Ending:</strong> In the SHUCHI path — the pure ending — all four ghosts find redemption. The title itself transforms in meaning: from Ashuchi (impure) to Shuchi (pure). The factory falls silent at last.
+
+          <p>The factory has been dead for decades. The machines stopped. The workers left. The gates were chained shut and the world forgot this place ever existed.</p>
+
+          <p>But the factory did not forget.</p>
+
+          <p>You are trapped inside — and the moment you crossed the threshold, <strong>something woke up.</strong> The lights flicker in patterns that feel deliberate. The machines groan like they are breathing. And from somewhere deep in the dark, you hear footsteps that do not belong to you.</p>
+
+          <p>There were four men who ran this factory in its final years. They did not die here — but what they did here <strong>never left.</strong></p>
+
+          <p style="padding: 20px 24px; background: rgba(255,255,255,0.03); border-left: 3px solid var(--orange); border-radius: 0 8px 8px 0; margin: 20px 0;">
+            <strong style="color: var(--orange); display:block; font-family:'Rajdhani',sans-serif; letter-spacing:2px; font-size:12px; text-transform:uppercase; margin-bottom:10px;">The Foreman</strong>
+            He knew the machines were failing. He knew three workers had already been injured by faulty equipment. He filed no reports. He ordered silence. When a worker finally died — crushed, alone, at 2am on a Tuesday — the Foreman buried the record and told the family it was their son's fault. He slept fine that night. He slept fine every night after. <em>He does not sleep anymore.</em>
           </p>
+
+          <p style="padding: 20px 24px; background: rgba(255,255,255,0.03); border-left: 3px solid #a855f7; border-radius: 0 8px 8px 0; margin: 20px 0;">
+            <strong style="color: #c084fc; display:block; font-family:'Rajdhani',sans-serif; letter-spacing:2px; font-size:12px; text-transform:uppercase; margin-bottom:10px;">The Accountant</strong>
+            The numbers never lied — because he made sure they never told the truth. Wage theft. Safety fund embezzlement. Insurance fraud signed in the names of workers who had no idea they were being stolen from. He was careful, methodical, brilliant. He built a second life for himself on the suffering of people who trusted the payroll. <em>Now the numbers he runs are the seconds left before he finds you.</em>
+          </p>
+
+          <p style="padding: 20px 24px; background: rgba(255,255,255,0.03); border-left: 3px solid #22d3ee; border-radius: 0 8px 8px 0; margin: 20px 0;">
+            <strong style="color: #67e8f9; display:block; font-family:'Rajdhani',sans-serif; letter-spacing:2px; font-size:12px; text-transform:uppercase; margin-bottom:10px;">The Manager</strong>
+            He took the bribes. From suppliers selling counterfeit safety equipment. From contractors cutting corners on structural integrity. He knew — with absolute certainty — that this factory was a slow disaster waiting to happen. He took the money anyway and sat behind his glass window, watching the floor below with the quiet satisfaction of a man who believed himself untouchable. <em>Now he watches from somewhere you cannot see. And he never blinks.</em>
+          </p>
+
+          <p style="padding: 20px 24px; background: rgba(255,255,255,0.03); border-left: 3px solid #34d399; border-radius: 0 8px 8px 0; margin: 20px 0;">
+            <strong style="color: #6ee7b7; display:block; font-family:'Rajdhani',sans-serif; letter-spacing:2px; font-size:12px; text-transform:uppercase; margin-bottom:10px;">The Inspector</strong>
+            He was the last line of protection. The one person whose signature could have shut this all down — the unsafe machines, the hidden deaths, the falsified records. He walked through this factory three times over five years. He saw everything. He signed the clearance forms anyway, pocketed the envelope left on his desk, and drove home to his family. The workers he abandoned drowned in a flooded basement six months later during a burst pipe that his approved clearance report said could not happen. <em>He lives in that water now. He has been waiting for someone to join him.</em>
+          </p>
+
+          <p>These four men are <strong>ASHUCHI</strong> — the impure. Bound to this factory by guilt so heavy it outlasted death itself. They are not demons. They are not monsters born of darkness. They are <em>men who made choices</em>, and the factory became the consequence those choices could never outrun.</p>
+
+          <p>You are not the hero of this story. You are the witness. And surviving is not enough — because scattered through these halls are the records, the confessions, the buried truth of what happened here. <strong>Every document you find. Every memory you uncover. Every ghost you understand</strong> — these are not collectibles. They are the only key that can unlock what this place truly needs.</p>
+
+          <p>Because there are two ways out of this factory.</p>
+
+          <p style="padding: 20px 24px; background: rgba(233,30,140,0.06); border: 1px solid rgba(233,30,140,0.2); border-radius: 8px; margin-top: 20px;">
+            <strong style="color: var(--pink); display:block; font-family:'Rajdhani',sans-serif; letter-spacing:3px; font-size:12px; text-transform:uppercase; margin-bottom:10px;">Two Endings. One Choice.</strong>
+            You can <strong>survive the night</strong> — escape at dawn with your life, leave the factory sealed, and let four tortured souls go on haunting these halls forever. You live. They stay trapped. The factory stays cursed.<br><br>
+            Or — if you find every truth, piece together every sin, and face each ghost with understanding instead of just fear — you can offer them something they never gave their workers: <strong>acknowledgment.</strong> In the <em>SHUCHI path</em>, the pure ending, each ghost confronts what they did and chooses to let go. One by one, the factory grows quiet. The machines stop. The lights hold steady. And ASHUCHI — the impure — becomes SHUCHI. <em>The pure. The finally free.</em><br><br>
+            The factory falls silent at last. Not because it was destroyed. But because it was understood.
+          </p>
+
         </div>
       </div>
 
       <div class="content-card">
         <h3 class="card-title">The Enemies</h3>
         <div class="enemies-list">
+
           <div class="enemy-card">
-            <div class="enemy-icon">👁️</div>
-            <div class="enemy-name">Shadow Stalker</div>
-            <div class="enemy-role">The Foreman. Hunts by sound. Patrols the factory floor with terrifying persistence.</div>
+            <div style="display:flex; align-items:flex-start; gap:14px;">
+              <div style="font-size:28px; flex-shrink:0; margin-top:2px;">🌑</div>
+              <div>
+                <div class="enemy-name" style="color:#f87171;">Shadow Stalker — The Foreman</div>
+                <div class="enemy-role" style="margin-top:6px;">He does not see you. He <em>hears</em> you. Every footstep, every breath that's too sharp, every door you let swing instead of catch — he is already turning toward the sound. He patrols the main factory floor with slow, methodical passes, as if he is still checking on his workers. But his head tilts at the slightest noise, and when he locks in — <strong>he does not stop.</strong> The only way to survive him is to become something the factory has never had: a worker who made no noise at all.</div>
+              </div>
+            </div>
           </div>
+
           <div class="enemy-card">
-            <div class="enemy-icon">🔧</div>
-            <div class="enemy-name">Twisted Worker</div>
-            <div class="enemy-role">The Accountant. Unpredictable path patterns. Reacts to light sources.</div>
+            <div style="display:flex; align-items:flex-start; gap:14px;">
+              <div style="font-size:28px; flex-shrink:0; margin-top:2px;">🔩</div>
+              <div>
+                <div class="enemy-name" style="color:#c084fc;">Twisted Worker — The Accountant</div>
+                <div class="enemy-role" style="margin-top:6px;">There is no pattern to where he goes next. He mapped the factory a thousand times in life, counting every corridor like a line in a ledger, and now that obsession has broken into something erratic — jagged, unpredictable, <em>wrong.</em> He reacts to light. Not because light blinds him, but because he spent his career hiding in the dark, and light feels like exposure. Turn on a lamp and he will come to extinguish it. Use darkness as your ally — but remember that in the dark, <strong>so does he.</strong></div>
+              </div>
+            </div>
           </div>
+
           <div class="enemy-card">
-            <div class="enemy-icon">🪬</div>
-            <div class="enemy-name">The Watcher</div>
-            <div class="enemy-role">The Manager. Stationary but omniscient. Sees everything in its line of sight.</div>
+            <div style="display:flex; align-items:flex-start; gap:14px;">
+              <div style="font-size:28px; flex-shrink:0; margin-top:2px;">👁</div>
+              <div>
+                <div class="enemy-name" style="color:#67e8f9;">The Watcher — The Manager</div>
+                <div class="enemy-role" style="margin-top:6px;">He does not move. He has never needed to. In life, he sat behind his glass office and watched everything below — and what he watched, he owned. Now he stands in the corridors, in the stairwells, at the end of long hallways, perfectly still. No footsteps to warn you. No breathing to track. Just a shape in the dark that may or may not be looking in your direction. <strong>Cross his line of sight and he will not chase you.</strong> He will simply know where you are. And inform the others.</div>
+              </div>
+            </div>
           </div>
+
           <div class="enemy-card">
-            <div class="enemy-icon">💧</div>
-            <div class="enemy-name">The Drowned</div>
-            <div class="enemy-role">The Inspector. Inhabits flooded sections. Fast. Relentless. Inescapable underwater.</div>
+            <div style="display:flex; align-items:flex-start; gap:14px;">
+              <div style="font-size:28px; flex-shrink:0; margin-top:2px;">🌊</div>
+              <div>
+                <div class="enemy-name" style="color:#6ee7b7;">The Drowned — The Inspector</div>
+                <div class="enemy-role" style="margin-top:6px;">The basement flooded the night after his final clearance approval. Six workers were trapped below when the pipe burst — the same pipe his report declared structurally sound. He knows what water feels like from the inside now. He lives in the lower levels, in the flooded maintenance corridors and submerged machine rooms, and he is the only one of the four who feels something close to desperation. He moves fast. <strong>Underwater, he is faster than you will ever be.</strong> Avoid the lower levels entirely if you can. If you cannot — do not stop swimming.</div>
+              </div>
+            </div>
           </div>
-          <div class="enemy-card">
-            <div class="enemy-icon">🏭</div>
-            <div class="enemy-name">The Factory</div>
-            <div class="enemy-role">The building itself. Environmental hazards, traps, and machinery that conspires against you.</div>
+
+          <div class="enemy-card" style="border-color: rgba(255,107,26,0.25); background: rgba(255,107,26,0.04);">
+            <div style="display:flex; align-items:flex-start; gap:14px;">
+              <div style="font-size:28px; flex-shrink:0; margin-top:2px;">🏭</div>
+              <div>
+                <div class="enemy-name" style="color: var(--orange);">The Factory — The Fifth Enemy</div>
+                <div class="enemy-role" style="margin-top:6px;">It is not haunted. It <em>is</em> the haunting. The machines that should be powerless turn on when you pass. The doors that should be stuck swing open at the wrong moment. The floors that look solid have learned where to give way. Decades of guilt have soaked into the walls of this place, and the building itself has developed something that functions disturbingly like <strong>intent.</strong> You cannot fight it. You cannot reason with it. You can only learn its rhythms — and pray that tonight, it is not smarter than you.</div>
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
 
@@ -1355,7 +1454,7 @@
       <div class="about-label">Who We Are</div>
       <h1 class="about-title">WE ARE<br>NINE<br>ACT</h1>
       <div class="about-body">
-        <p>NineAct Games is an independent game studio based in Rajasthan, India. We are storytellers first — every mechanic, every system, every line of dialogue serves the emotional truth of the game.</p>
+        <p>NineAct Games is an independent game studio based in India. We are storytellers first — every mechanic, every system, every line of dialogue serves the emotional truth of the game.</p>
         <p>We believe that horror is at its most powerful when it is personal. When the fear comes not from what jumps out of the darkness, but from what the darkness reveals about the world — and about you.</p>
         <p>We are building <strong>ASHUCHI: Curse of Greed</strong> — a psychological horror game that asks a simple, devastating question: can the guilty ever truly be forgiven?</p>
         <p>Made in Unreal Engine 5. Made in India. Made with intention.</p>
